@@ -15,6 +15,12 @@ athena% git clone https://exokernel.scripts.mit.edu/joslab.git lab
 Cloning into lab...
 athena% cd lab
 athena%
+
+img = cv2.imread('example.png',0)
+cv2.namedWindow("Example",cv2.WINDOW_AUTOSIZE)
+cv2.imshow('Example',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 ```
 Git 可以帮你跟踪代码中的变化。比如，如果你完成了一个练习，想在你的进度中打一个检查点，你可以运行如下的命令去提交你的变更：
 ```shell
