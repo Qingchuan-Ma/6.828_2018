@@ -40,7 +40,7 @@
     },
     "prism": {
     "css": [
-      "prism-themes/themes/prism-ghcolors.css"
+      "prism-themes/themes/prism-atom-dark.css"
     ]
     }
   }
