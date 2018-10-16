@@ -7,15 +7,15 @@
 本课程中你需要的文件和接下来的实验任务所需要的文件都是通过使用 [Git](http://www.git-scm.com/) 版本控制系统来分发的。学习更多关于 Git 的知识，请查看 [Git user's manual](http://www.kernel.org/pub/software/scm/git/docs/user-manual.html)，或者，如果你熟悉其它的版本控制系统，这个 [CS-oriented overview of Git](http://eagain.net/articles/git-for-computer-scientists/) 可能对你有帮助。
 
 本课程在 Git 仓库中的地址是 https://exokernel.scripts.mit.edu/joslab.git 。在你的 Athena 帐户中安装文件，你需要运行如下的命令去克隆课程仓库。你也可以使用 `ssh -X athena.dialup.mit.edu` 去登入到一个公共的 Athena 主机。
-```
-athena% mkdir ~/6.828
-athena% cd ~/6.828
-athena% add git
-athena% git clone https://exokernel.scripts.mit.edu/joslab.git lab
-Cloning into lab...
-athena% cd lab
-athena%
-```
+
+    athena% mkdir ~/6.828
+    athena% cd ~/6.828
+    athena% add git
+    athena% git clone https://exokernel.scripts.mit.edu/joslab.git lab
+    Cloning into lab...
+    athena% cd lab
+    athena%
+
 Git 可以帮你跟踪代码中的变化。比如，如果你完成了一个练习，想在你的进度中打一个检查点，你可以运行如下的命令去提交你的变更：
 ```
 athena% git commit -am 'my solution for lab1 exercise 9'
