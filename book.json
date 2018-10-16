@@ -16,7 +16,8 @@
     "prism",
     "-highlight",
     "splitter",
-    "expandable-chapters-small"
+    "expandable-chapters-small",
+    "prism-themes"
   ],
   "pluginsConfig": {
     "image-captions": {
