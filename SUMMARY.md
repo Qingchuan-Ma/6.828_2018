@@ -5,3 +5,5 @@
 * [简介](Part_1/README.md)
     * [课程简介](Part_1/Class.md)
     * [xv6 简介](Part_1/Xv6.md)
+* [Labs](Part_2/README.md)
+    * [Lab1](Part_2/Lab1.md)
