@@ -7,17 +7,17 @@
 本课程中你需要的文件和接下来的实验任务所需要的文件都是通过使用 [Git](http://www.git-scm.com/) 版本控制系统来分发的。学习更多关于 Git 的知识，请查看 [Git user's manual](http://www.kernel.org/pub/software/scm/git/docs/user-manual.html)，或者，如果你熟悉其它的版本控制系统，这个 [CS-oriented overview of Git](http://eagain.net/articles/git-for-computer-scientists/) 可能对你有帮助。
 
 本课程在 Git 仓库中的地址是 https://exokernel.scripts.mit.edu/joslab.git 。在你的 Athena 帐户中安装文件，你需要运行如下的命令去克隆课程仓库。你也可以使用 `ssh -X athena.dialup.mit.edu` 去登入到一个公共的 Athena 主机。
-
-    athena% mkdir ~/6.828
-    athena% cd ~/6.828
-    athena% add git
-    athena% git clone https://exokernel.scripts.mit.edu/joslab.git lab
-    Cloning into lab...
-    athena% cd lab
-    athena%
-
-Git 可以帮你跟踪代码中的变化。比如，如果你完成了一个练习，想在你的进度中打一个检查点，你可以运行如下的命令去提交你的变更：
+```shell
+athena% mkdir ~/6.828
+athena% cd ~/6.828
+athena% add git
+athena% git clone https://exokernel.scripts.mit.edu/joslab.git lab
+Cloning into lab...
+athena% cd lab
+athena%
 ```
+Git 可以帮你跟踪代码中的变化。比如，如果你完成了一个练习，想在你的进度中打一个检查点，你可以运行如下的命令去提交你的变更：
+```shell
 athena% git commit -am 'my solution for lab1 exercise 9'
 Created commit 60d2135: my solution for lab1 exercise 9
  1 files changed, 1 insertions(+), 0 deletions(-)
@@ -36,7 +36,7 @@ athena%
 
 现在，你已经有了你的 `6.828` 密码，在 `lab` 目录下，运行如下的命令去配置实践仓库：
 
-```
+```shell
 athena% make handin-prep
 Using public key from ~/.ssh/id_rsa:
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD0lnnkoHSi4JDFA ...
@@ -55,7 +55,7 @@ athena%
 ```
 
 如果你没有 RSA 密钥对，这个脚本可能会询问你是否生成一个新的密钥对：
-```
+```shell
 athena% make handin-prep
 SSH key file ~/.ssh/id_rsa does not exists, generate one? [Y/n] Y
 Generating public/private rsa key pair.
@@ -75,7 +75,7 @@ Continue? [Y/n] Y
 athena%
 ```
 当你开始动手做实验时，在 `lab` 目录下，输入 `make handin` 去使用 git 做第一次提交。后面将运行 `git push handin HEAD`，它将推送当前分支到远程 `handin` 仓库的同名分支上。
-```
+```shell
 athena% git commit -am "ready to submit my lab"
 [lab1 c2e3c8b] ready to submit my lab
  2 files changed, 18 insertions(+), 2 deletions(-)
@@ -120,7 +120,7 @@ athena%
 在 6.828 中，我们将使用 [QEMU 仿真器](http://www.qemu.org/)，它是一个现代化的并且速度非常快的仿真器。虽然 QEMU 内置的监视功能提供了有限的调试支持，但是，QEMU 也可以做为 [GNU 调试器](http://www.gnu.org/software/gdb/) (GDB) 的远程调试目标，我们在这个实验中将使用它来一步一步完成引导过程。
 
 在开始之前，按照前面 “软件安装“ 中在 Athena 主机上描述的步骤，提取实验 1 的文件到你自己的目录中，然后，在 `lab` 目录中输入 `make`（如果是 BSD 的系统，是输入 `gmake` ）来构建最小的 6.828 引导加载器和用于启动的内核。（把在这里我们运行的这些代码称为 ”内核“ 有点夸大，但是，通过这个学期的课程，我们将把这些代码充实起来，成为真正的 ”内核“）
-```
+```shell
 athena% cd lab
 athena% make
 + as kern/entry.S
@@ -141,11 +141,11 @@ boot block is 414 bytes (max 510)
 （如果你看到有类似 "undefined reference to \`\__udivdi3'" 这样的错误，可能是因为你的电脑上没有 32 位的 “gcc multilib”。如果你运行在 Debian 或者 Ubuntu，你可以尝试去安装 “gcc-multilib” 包。）
 
 现在，你可以去运行 QEMU 了，并将上面创建的 `obj/kern/kernel.img` 文件提供给它，以作为仿真 PC 的 “虚拟硬盘”，这个虚拟硬盘中包含了我们的引导加载器（`obj/boot/boot`) 和我们的内核（`obj/kernel`）。
-```
+```shell
 athena% make qemu
 ```
 运行 QEMU 时需要使用选项去设置硬盘，以及指示串行端口输出到终端。在 QEMU 窗口中将出现一些文本内容：
-```
+```shell
 Booting from Hard Disk...
 6828 decimal is XXX octal!
 entering test_backtrace 5
@@ -167,7 +167,7 @@ K>
 在 `Booting from Hard Disk...` 之后的内容，就是由我们的基本 JOS 内核输出的：`K>` 是包含在我们的内核中的小型监听器或者交互式控制程序的提示符。内核输出的这些行也会出现在你运行 QEMU 的普通 shell 窗口中。这是因为测试和实验分级的原因，我们配置了 JOS 的内核，使它将控制台输出不仅写入到虚拟的 VGA 显示器（就是 QEMU 窗口），也写入到仿真 PC 的虚拟串口上，QEMU 会将虚拟串口上的信息转发到它的标准输出上。同样，JOS 内核也将接收来自键盘和串口的输入，因此，你既可以从 VGA 显示窗口中输入命令，也可以从运行 QEMU 的终端窗口中输入命令。或者，你可以通过运行 `make qemu-nox` 来取消虚拟 VGA 的输出，只使用串行控制台来输出。如果你是通过 SSH 拨号连接到 Athena 主机，这样可能更方便。
 
 在这里有两个可以用来监视内核的命令，它们是 `help` 和 `kerninfo`。
-```
+```shell
 K> help
 help - display this list of commands
 kerninfo - display information about the kernel
@@ -186,10 +186,9 @@ K>
 
 我们现在将更深入去了解 “关于 PC 是如何启动” 的更多细节。一台 PC 的物理地址空间是硬编码为如下的布局：
 ![](../Static/lab1.png)
-<table style="margin:0 auto">
-<pre>
-<center>
-                     +------------------+  &lt;- 0xFFFFFFFF (4GB)
+
+```html
++------------------+  &lt;- 0xFFFFFFFF (4GB)
 |      32-bit      |
 |  memory mapped   |
 |     devices      |
@@ -199,27 +198,26 @@ K>
 |                  |
 |      Unused      |
 |                  |
-                            +------------------+  - depends on amount of RAM
++------------------+  - depends on amount of RAM
 |                  |
 |                  |
 | Extended Memory  |
 |                  |
 |                  |
-                    +------------------+  - 0x00100000 (1MB)
++------------------+  - 0x00100000 (1MB)
 |     BIOS ROM     |
-                      +------------------+  - 0x000F0000 (960KB)
++------------------+  - 0x000F0000 (960KB)
 |  16-bit devices, |
 |  expansion ROMs  |
-                      +------------------+  - 0x000C0000 (768KB)
++------------------+  - 0x000C0000 (768KB)
 |   VGA Display    |
-                      +------------------+  - 0x000A0000 (640KB)
++------------------+  - 0x000A0000 (640KB)
 |                  |
 |    Low Memory    |
 |                  |
-              +------------------+  - 0x00000000
-</center>
-</pre>
-</table>
++------------------+  - 0x00000000
+```
+
 首先，这台 PC 是基于 16 位的 Intel 8088 处理器，它仅能处理 1 MB 的物理地址。所以，早期 PC 的物理地址空间开始于 0x00000000，结束于 0x000FFFFF 而不是 0xFFFFFFFF。被标记为 “低位内存” 的区域是早期 PC 唯一可以使用的随机访问内存（RAM）；事实上，更早期的 PC 仅可以配置 16KB、32KB、或者 64KB 的内存！
 
 从 0x000A0000 到 0x000FFFFF 的 384 KB 的区域是为特定硬件保留的区域，比如，视频显示缓冲和保存在非易失存储中的固件。这个保留区域中最重要的部分是基本输入/输出系统（BIOS），它位于从 0x000F0000 到 0x000FFFFF 之间的 64KB 大小的区域。在早期的 PC 中，BIOS 在真正的只读存储（ROM）中，但是，现在的 PC 的 BIOS 都保存在可更新的 FLASH 存储中。BIOS 负责执行基本系统初始化工作，比如，激活视频卡和检查已安装的内存数量。这个初始化工作完成之后，BIOS 从相关位置加载操作系统，比如从软盘、硬盘、CD-ROM、或者网络，然后将机器的控制权传递给操作系统。
